@@ -1,0 +1,50 @@
+{% extends 'movies/base.html' %}
+{% block content %}
+
+<div id="movieCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for i in slider_movies %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <img src="{{ i.image.url }}" class="d-block w-100" alt="{{ i.title }}" style="height: 80vh; object-fit: cover;">
+      <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+        <h2>{{ i.title }}</h2>
+        <p>{{ i.description|truncatewords:20 }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<h2 class="text-center mb-4">Top 10 Movies</h2>
+<div class="row row-cols-1 row-cols-md-5 g-4 px-3">
+  {% for movie in top_movies %}
+  <div class="col">
+    <div class="card movie-card text-white bg-dark">
+      <img src="{{ movie.image.url }}" class="card-img-top movie-img" alt="{{ movie.title }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text">{{ movie.description|truncatewords:10 }}</p>
+        <a href="{% url 'like_movie' movie.id %}" class="btn btn-outline-danger btn-sm">
+           {% if movie.liked %}Liked{% else %}Like{% endif %}
+        </a>
+          <a href="{% url 'theatres' %}" class="btn btn-outline-success btn-sm">
+           🎟️ Select Seat
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+{% endblock %}
+

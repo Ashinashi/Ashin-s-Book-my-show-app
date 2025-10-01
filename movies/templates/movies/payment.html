@@ -1,0 +1,48 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<div class="container my-5 text-center">
+  <h2>💳 Payment Page</h2>
+  <p class="lead">You selected seats worth <strong>₹{{ amount }}</strong></p>
+
+  <hr>
+
+  <!-- Coupon Code Section -->
+  <div class="my-4">
+    <h5>🎁 Redeem a Coupon</h5>
+    <input type="text" class="form-control w-50 mx-auto " placeholder="Enter coupon code">
+    <button class="btn btn-success mt-2">Apply</button>
+  </div>
+
+  <!-- Bank Offers -->
+<!-- Bank Offers -->
+<div class="my-4 text-start">
+  <h5>🏦 Bank Offers</h5>
+  <ul class="list-unstyled">
+    <li>💳 10% off with HDFC Credit Cards</li>
+    <li>💳 ₹100 cashback on ICICI Debit Cards</li>
+    <li>💳 No-cost EMI available on SBI Cards</li>
+  </ul>
+</div>
+
+  <!-- Payment Methods -->
+  <div class="my-4">
+    <h5>💰 Choose Your Payment Method</h5>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/120px-Visa_Inc._logo.svg.png" alt="Visa" height="40">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/120px-Mastercard-logo.svg.png" alt="Mastercard" height="40">
+      <img src="https://img.icons8.com/?size=96&id=5JTcb83oDGrE&format=png" alt="RuPay" height="40">
+      <img src="https://img.icons8.com/?size=96&id=am4ltuIYDpQ5&format=png" alt="Google Pay" height="40">
+      <img src="https://img.icons8.com/?size=96&id=OYtBxIlJwMGA&format=png" alt="PhonePe" height="40">
+      <img src="https://img.icons8.com/?size=96&id=68067&format=png" alt="Paytm" height="40">
+    </div>
+  </div>
+
+  <!-- Pay Now Button -->
+  <div class="my-4">
+    <a href="https://pay.google.com/intl/en_in/about/" class="btn btn-primary btn-lg" target="_blank">
+      Proceed to Pay ₹{{ amount }}
+    </a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<div class="container my-5 text-center">
+  <h2>Your Favorite Movies</h2>
+
+  <div class="row justify-content-center">
+    {% for movie in fav_movies %}
+    <div class="col-md-3">
+      <div class="card bg-dark text-white mb-4">
+        <img src="{{ movie.image.url }}" class="card-img-top">
+        <div class="card-body">
+          <h5>{{ movie.title }}</h5>
+          <a href="{% url 'like_movie' movie.id %}" class="btn btn-outline-light">Remove</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+      <p class="lead">No favorites added</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

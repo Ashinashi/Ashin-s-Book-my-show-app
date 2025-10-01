@@ -1,0 +1,24 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<h2>Movies</h2>
+<div class="row">
+  {% for movie in movies %}
+  <div class="col-md-3">
+    <div class="card bg-dark text-white mb-4">
+      <img src="{{ movie.image }}" class="card-img-top" alt="{{ movie.title }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text">{{ movie.description|truncatewords:15 }}</p>
+        <a href="{% url 'like_movie' movie.id %}" class="btn btn-outline-danger">
+          ❤️ {% if movie.liked %}Liked{% else %}Like{% endif %}
+        </a>
+        <a href="{% url 'favorite_movie' movie.id %}" class="btn btn-outline-warning">
+          ⭐ {% if movie.favorite %}Favorited{% else %}Favorite{% endif %}
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

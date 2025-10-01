@@ -1,0 +1,91 @@
+{% extends 'movies/base.html' %}
+{% block content %}
+
+<div class="container my-5">
+  <h2 class="text-center mb-4">🎬 Select Your Seats</h2>
+  <div class="row justify-content-center">
+    <div class="col-lg-10 text-center">
+
+      <!-- 🟥 Screen -->
+      <div class="screen mb-4">🟥 Screen</div>
+
+      <!-- ⚪ Silver Section (Front) -->
+      <h5 class="text-secondary">Silver Seats (₹150)</h5>
+      <div class="seats-grid">
+        {% for row in "AB" %}
+          <div class="seat-row justify-content-center">
+            {% for seat in "123456789101112" %}
+              <button class="seat silver" onclick="toggleSeat(this, 150)">
+                {{ row }}{{ seat }}
+              </button>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- 🟡 Gold Section (Middle) -->
+      <h5 class="text-warning mt-4">Gold Seats (₹180)</h5>
+      <div class="seats-grid">
+        {% for row in "CD" %}
+          <div class="seat-row justify-content-center">
+            {% for seat in "123456789101112" %}
+              <button class="seat gold" onclick="toggleSeat(this, 180)">
+                {{ row }}{{ seat }}
+              </button>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- 🔴 Premium Section (Back) -->
+      <h5 class="text-danger mt-4">Premium Seats (₹480)</h5>
+      <div class="seats-grid">
+        {% for row in "EF" %}
+          <div class="seat-row justify-content-center">
+            {% for seat in "123456789101112" %}
+              <button class="seat premium" onclick="toggleSeat(this, 480)">
+                {{ row }}{{ seat }}
+              </button>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- 🧮 Summary -->
+      <div class="mt-4">
+        <p>Selected Seats: <span id="selected-count">0</span></p>
+        <p>Total Amount: ₹<span id="total-amount">0</span></p>
+        <button class="btn btn-success" onclick="goToPayment()">Proceed to Payment</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  let selectedSeats = 0;
+  let totalAmount = 0;
+
+  function toggleSeat(btn, price) {
+    btn.classList.toggle('selected');
+    if (btn.classList.contains('selected')) {
+      selectedSeats += 1;
+      totalAmount += price;
+    } else {
+      selectedSeats -= 1;
+      totalAmount -= price;
+    }
+    document.getElementById('selected-count').innerText = selectedSeats;
+    document.getElementById('total-amount').innerText = totalAmount;
+  }
+
+  function goToPayment() {
+    if (selectedSeats > 0) {
+      alert("Redirecting to payment for ₹" + totalAmount);
+      window.location.href = "/payment/?amount=" + totalAmount;
+    } else {
+      alert("Please select at least one seat.");
+    }
+  }
+</script>
+{% endblock %}

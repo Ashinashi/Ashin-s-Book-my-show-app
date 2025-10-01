@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book My Show</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #f2f2f2;
+      font-family: 'Poppins', sans-serif;
+      padding-top: 80px; /* space for fixed navbar */
+    }
+
+    .navbar {
+      background-color: #1a1a1a;
+      box-shadow: 0 2px 10px rgba(255, 0, 0, 0.2);
+    
+    }
+
+    .navbar-brand {
+      color: #ff0033 !important;
+      font-weight: bold;
+      text-shadow: 0 0 5px #ff0033;
+    }
+
+    .navbar-nav .nav-link {
+      color: #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #ff0033;
+      text-shadow: 0 0 8px #ff0033;
+    }
+
+    .navbar-nav .nav-link.active {
+      color: #ff0033;
+      font-weight: bold;
+      border-bottom: 2px solid #ff0033;
+      text-shadow: 0 0 10px #ff0033;
+    }
+
+    .search-bar input::placeholder {
+      color: #aaa;
+    }
+
+    .search-bar .btn-outline-danger:hover,
+    .search-bar .btn-outline-light:hover {
+      background-color: #ff0033;
+      color: white;
+    }
+
+    .movie-card {
+      background-color: #1c1c1c;
+      border: none;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+    }
+
+    .movie-img {
+      height: 280px;
+      object-fit: cover;
+      border-bottom: 2px solid #ff0033;
+    }
+
+    .seats-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .seat-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .seat {
+      background-color: #222;
+      color: #f2f2f2;
+      border: 1px solid #444;
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .seat:hover {
+      box-shadow: 0 0 8px #ff0033;
+    }
+
+    .seat.selected {
+      background-color: #ff0033;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 12px #ff0033;
+    }
+
+    .premium { border: 2px solid #ff0033; }
+    .gold { border: 2px solid #ffc107; }
+    .silver { border: 2px solid #bbb; }
+
+    .screen {
+      background-color: #660000;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      background-color: #1a1a1a;
+      color: #ccc;
+      border-top: 1px solid #333;
+      box-shadow: 0 -2px 10px rgba(255, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container-fluid">
+    <!-- Logo + Brand -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      {% load static %}
+      <img src="{% static 'images/logo.png' %}" alt="Logo" width="40" height="40" class="me-2">
+      <span>Book My Show</span>
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav + Search -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <!-- Search Bar -->
+      <form class="d-flex me-3 search-bar" role="search">
+        <input class="form-control me-2 bg-dark text-white border-secondary" type="search" placeholder="Search movies..." aria-label="Search">
+        <button class="btn btn-outline-danger" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+        <button class="btn btn-outline-light ms-2" type="button">
+          <i class="bi bi-mic-fill"></i>
+        </button>
+      </form>
+
+      <!-- Navigation Links -->
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.path == '/movies/' %}active{% endif %}" href="/movies/">Movies</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.path == '/favorites/' %}active{% endif %}" href="/favorites/">Favorites</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.path == '/releases/' %}active{% endif %}" href="/releases/">Releases</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.path == '/theatres/' %}active{% endif %}" href="/theatres/">Theatres</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container-fluid p-0">
+  {% block content %}{% endblock %}
+</div>
+
+<!-- Footer -->
+<footer class="text-center text-white mt-5 py-4">
+  <p>&copy; 2025 Book My Show. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
