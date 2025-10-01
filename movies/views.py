@@ -8,6 +8,15 @@ from .models import Movie
 # movies/views.py
 from django.shortcuts import render
 
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),  # this enables /accounts/login/
+]
+
 def payment(request):
     amount = request.GET.get('amount', 0)
     return render(request, 'movies/payment.html', {'amount': amount})
@@ -89,3 +98,7 @@ def process_payment(request):
     # Handle payment logic here
     return render(request, 'movies/payment_success.html', {'amount': amount})
 
+from django.contrib.auth.views import LoginView
+
+class MyLoginView(LoginView):
+    template_name = 'movies/my_login.html'  # or wherever your custom login template is

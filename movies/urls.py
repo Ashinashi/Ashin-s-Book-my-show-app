@@ -6,7 +6,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('process-payment/', views.process_payment, name='payment_process'),
-    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout')
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('favorite/<int:movie_id>/', views.favorite_movie, name='favorite_movie'),
     path('payment/', views.payment, name='payment'),
     path('process-payment/', views.process_payment, name='payment_process'),
